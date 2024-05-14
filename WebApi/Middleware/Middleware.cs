@@ -56,6 +56,8 @@ namespace Api
         }
     }
 
+
+
     public static class CastomErrorHandlingMiddlewareExtensions
     {
         public static IApplicationBuilder UseCastomExeceptionHardler(this IApplicationBuilder builder)

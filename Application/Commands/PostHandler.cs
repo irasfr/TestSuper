@@ -12,8 +12,6 @@ namespace Application.Commands
         public PostHandler(IDbContext dbContext) => _dbContext = dbContext;
         public async Task<Guid> Handle(Post request, CancellationToken cancellationToken)
         {
-
-
             var User = new Users
             {
                 UserId = request.UserId,
@@ -25,7 +23,6 @@ namespace Application.Commands
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return User.Id;
-
         }
     }
 }

@@ -4,25 +4,23 @@
 #For more information, please see https://aka.ms/containercompat
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
-WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+# Устанавливаем MediatR версии 11.0.0
+RUN dotnet add package MediatR --version 11.0.0
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
+ENV BUILD_CONFIGURATION=Release
 COPY ["WebApi/WebApi.csproj", "WebApi/"]
 RUN dotnet restore "./WebApi/WebApi.csproj"
 COPY . .
-WORKDIR "/src/WebApi"
-RUN dotnet build "./WebApi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+RUN dotnet build "./WebApi.csproj" -c $BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./WebApi.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+ENV BUILD_CONFIGURATION=Release
+RUN dotnet publish "./WebApi.csproj" -c $BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
-WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApi.dll"]
-

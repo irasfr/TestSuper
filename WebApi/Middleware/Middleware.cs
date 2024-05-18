@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 namespace Api
 {
-
     public class CustomExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
@@ -57,7 +56,6 @@ namespace Api
     }
 
 
-
     public static class CastomErrorHandlingMiddlewareExtensions
     {
         public static IApplicationBuilder UseCastomExeceptionHardler(this IApplicationBuilder builder)
@@ -66,4 +64,3 @@ namespace Api
         }
     }
 }
-

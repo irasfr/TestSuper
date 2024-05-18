@@ -1,13 +1,5 @@
 ﻿using Application.Interfaces;
-using Application.Commands;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-using System;
-using Domain;
-
-
 
 namespace Application.Commands
 {
